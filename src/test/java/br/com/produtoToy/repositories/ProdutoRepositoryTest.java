@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.produtoToy.domains.Produto;
 
@@ -39,6 +38,12 @@ public class ProdutoRepositoryTest {
 	public void voidTestaProdutoSapato() {
 		List<Produto> produtos = repo.findByDescricaoContaining("sapato"); 
 		assertThat(produtos.size()).isEqualTo(0);
+	}
+	
+	@Test
+	public void voidIdHavaina() {
+		Produto produto = repo.findOne(1); 
+		assertThat(produto.getId()).isEqualTo(1);
 	}
 	
 }
