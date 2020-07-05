@@ -28,10 +28,10 @@ public class Produto implements Serializable {
 	private Integer id;
 
 	@Column(name = "DSC_PRODUTO", length = 255, nullable = false, unique = true)
-	private String descriao;
+	private String descricao;
 	
 	public Produto(String descricao) {
-		this.descriao = descricao;
+		this.descricao = descricao;
 	}
 
 }
