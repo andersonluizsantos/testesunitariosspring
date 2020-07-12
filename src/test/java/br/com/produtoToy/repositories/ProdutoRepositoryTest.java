@@ -23,7 +23,7 @@ public class ProdutoRepositoryTest {
 	
 	@Test
 	public void voidTestaProdutoHavaina() {
-		List<Produto> produtos = repo.findByDescricaoContaining("hava"); 
+		List<Produto> produtos = repo.findByDescricaoContainingIgnoreCase("hava"); 
 		assertThat(produtos.size()).isEqualTo(1);
 		assertThat(produtos.get(0).getDescricao().equals("Sandalia havainas"));		
 	}
@@ -36,7 +36,7 @@ public class ProdutoRepositoryTest {
 	
 	@Test
 	public void voidTestaProdutoSapato() {
-		List<Produto> produtos = repo.findByDescricaoContaining("sapato"); 
+		List<Produto> produtos = repo.findByDescricaoContainingIgnoreCase("sapato"); 
 		assertThat(produtos.size()).isEqualTo(0);
 	}
 	
