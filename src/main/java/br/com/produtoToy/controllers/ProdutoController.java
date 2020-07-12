@@ -3,7 +3,9 @@ package br.com.produtoToy.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +37,17 @@ public class ProdutoController {
 		if (produtos.size() > 0) {
 			return ResponseEntity.ok(produtos);
 		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@DeleteMapping(value = "{id}")
+	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+		try {
+			repo.delete(id);
+			return ResponseEntity.ok(id);		
+		} catch (EmptyResultDataAccessException e) {
+			//se retornar essa exceção específica 
 			return ResponseEntity.notFound().build();
 		}
 	}
