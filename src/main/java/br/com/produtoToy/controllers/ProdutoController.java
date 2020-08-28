@@ -1,4 +1,4 @@
-package br.com.produtoToy.controllers;
+package br.com.produtotoy.controllers;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,9 +21,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.google.gson.Gson;
 
-import br.com.produtoToy.domains.Produto;
-import br.com.produtoToy.domains.RespostaDataT9;
-import br.com.produtoToy.repositories.ProdutoRepository;
+import br.com.produtotoy.domains.Produto;
+import br.com.produtotoy.domains.RespostaDataT9;
+import br.com.produtotoy.repositories.ProdutoRepository;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -33,7 +33,7 @@ public class ProdutoController {
 	private ProdutoRepository repo;
 
 	@GetMapping(value = "{id}")
-	public ResponseEntity<?> findById(@PathVariable Integer id) {
+	public ResponseEntity<Object> findById(@PathVariable Integer id) {
 		Produto produto = repo.findOne(id);
 		if (produto == null) {
 			return ResponseEntity.notFound().build();
@@ -43,14 +43,13 @@ public class ProdutoController {
 	}
 	
 	@GetMapping(value = "respostaT9/{id}")
-	public ResponseEntity<?> findByRespostaT9() {
+	public ResponseEntity<Object> findByRespostaT9() {
 		try {
 			String json = String.join(" ",
 			        Files.readAllLines(Paths.get("C:\\temp\\json\\Massa.json"), StandardCharsets.UTF_8));
 			RespostaDataT9 respostaDataT9 = new Gson().fromJson(json, RespostaDataT9.class);
 			return ResponseEntity.ok(respostaDataT9);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -59,17 +58,17 @@ public class ProdutoController {
 	}
 
 	@GetMapping(value = "like/{descricao}")
-	public ResponseEntity<?> findByDescricao(@PathVariable String descricao) {
+	public ResponseEntity<Object> findByDescricao(@PathVariable String descricao) {
 		List<Produto> produtos = repo.findByDescricaoContainingIgnoreCase(descricao);
-		if (produtos.size() > 0) {
-			return ResponseEntity.ok(produtos);
-		} else {
+		if (produtos.isEmpty()) {
 			return ResponseEntity.notFound().build();
+		} else {
+			return ResponseEntity.ok(produtos);
 		}
 	}
 
 	@DeleteMapping(value = "{id}")
-	public ResponseEntity<?> deleteById(@PathVariable Integer id) {
+	public ResponseEntity<Object> deleteById(@PathVariable Integer id) {
 		try {
 			repo.delete(id);
 			return ResponseEntity.ok(id);
@@ -80,7 +79,7 @@ public class ProdutoController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> salvarProduto(@RequestBody Produto produto) {
+	public ResponseEntity<Object> salvarProduto(@RequestBody Produto produto) {
 		Produto produtoSalvo = repo.save(produto);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(produtoSalvo.getId())
 				.toUri();

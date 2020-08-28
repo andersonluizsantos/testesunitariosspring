@@ -1,4 +1,4 @@
-package br.com.produtoToy.controllers;
+package br.com.produtotoy.controllers;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

@@ -1,11 +1,11 @@
-package br.com.produtoToy.repositories;
+package br.com.produtotoy.repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
-import br.com.produtoToy.domains.Produto;
+import br.com.produtotoy.domains.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	//Aqui já temos todos os métodos do CRUD

@@ -1,4 +1,4 @@
-package br.com.produtoToy.domains;
+package br.com.produtotoy.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
